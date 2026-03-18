@@ -45,8 +45,29 @@ function setupEventListeners() {
       item.classList.add('active');
       currentSection = item.dataset.section;
       renderEditor();
+
+      // Close sidebar on mobile after clicking
+      if (window.innerWidth <= 768) {
+        document.body.classList.remove('sidebar-open');
+      }
     });
   });
+
+  // Mobile Navigation
+  const menuToggle = document.getElementById('menu-toggle');
+  const closeSidebar = document.getElementById('close-sidebar');
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      document.body.classList.add('sidebar-open');
+    });
+  }
+
+  if (closeSidebar) {
+    closeSidebar.addEventListener('click', () => {
+      document.body.classList.remove('sidebar-open');
+    });
+  }
 
   saveBtn.addEventListener('click', handleSave);
   exportBtn.addEventListener('click', handleExportJSON);

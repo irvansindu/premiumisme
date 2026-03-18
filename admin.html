@@ -25,7 +25,14 @@
 
   <!-- Main Dashboard -->
   <div id="admin-dashboard" class="dashboard-container" style="display: none;">
-    <aside class="sidebar">
+    <!-- Mobile Toggle -->
+    <div class="mobile-header">
+      <button id="menu-toggle" class="menu-btn">☰</button>
+      <span class="mobile-brand">Admin Panel</span>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+      <button id="close-sidebar" class="close-sidebar-btn">×</button>
       <div class="sidebar-header">
         <div class="logo" id="admin-logo-box">P</div>
         <span id="admin-brand-name">Premiumisme Admin</span>

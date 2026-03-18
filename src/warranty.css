@@ -1,0 +1,195 @@
+/* ===== Warranty Specific Styles ===== */
+
+.warranty-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 60px 20px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.warranty-card {
+  max-width: 760px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.warranty-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.warranty-subtitle {
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-bottom: 32px;
+}
+
+/* Selection Bar */
+.selection-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.product-dropdown {
+  flex: 1;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(30, 27, 75, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px top 50%;
+  background-size: 10px auto;
+  transition: all 0.3s;
+}
+
+.product-dropdown:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.product-dropdown option {
+  background: #1e1b4b;
+  color: white;
+}
+
+.btn-kembali {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #6366f1;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-kembali:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Content Area */
+.warranty-content {
+  text-align: left;
+}
+
+.empty-state {
+  padding: 40px 20px;
+  color: #94a3b8;
+  font-size: 15px;
+  text-align: center;
+}
+
+.details-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.details-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.details-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #94a3b8;
+}
+
+.details-list li strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Footer */
+.warranty-footer {
+  position: absolute;
+  bottom: 24px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #94a3b8;
+  z-index: 10;
+}
+
+.warranty-footer .heart {
+  color: #c084fc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .warranty-card {
+    padding: 30px 20px;
+  }
+  
+  .warranty-title {
+    font-size: 24px;
+  }
+  
+  .selection-bar {
+    flex-direction: column;
+  }
+  
+  .btn-kembali {
+    width: 100%;
+    justify-content: center;
+  }
+}

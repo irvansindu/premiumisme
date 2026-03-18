@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ - Premiumisme</title>
+  <meta name="description" content="Pertanyaan yang sering ditanyakan seputar produk digital Premiumisme." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/global.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/store.html" class="header-logo">premiumisme.store</a>
+      <div class="search-bar">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="header-search-input" placeholder="Cari produk & transaksi" readonly />
+        <span class="search-shortcut">ctrl+k</span>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+        <button class="btn-login">Masuk</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumb">
+    <a href="/store.html">Store</a> <span>›</span> <span>FAQ</span>
+  </nav>
+
+  <!-- FAQ Main (Dynamic) -->
+  <main id="faq-container" class="info-page">
+    <h1>❓ Frequently Asked Questions</h1>
+    <p class="subtitle">Pertanyaan yang sering ditanyakan seputar Premiumisme</p>
+    
+    <div id="faq-list">
+      <!-- FAQ items will be rendered here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2024 Premiumisme. All rights reserved.</p>
+        <a href="/" style="color: var(--accent-text); font-size: 14px; font-weight: 600;">← Kembali ke Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <div class="search-modal-overlay" id="search-modal">
+    <div class="search-modal">
+      <input type="text" id="search-modal-input" placeholder="Cari produk & transaksi..." />
+      <p class="search-modal-hint">Tekan <kbd>ESC</kbd> untuk menutup</p>
+    </div>
+  </div>
+
+  <script type="module" src="/src/global.js"></script>
+</body>
+</html>

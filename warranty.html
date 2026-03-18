@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syarat & Ketentuan di Premiumisme</title>
+  <meta name="description" content="Syarat & Ketentuan garansi produk digital Premiumisme." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/landing.css" />
+  <link rel="stylesheet" href="/src/warranty.css" />
+</head>
+<body>
+  <!-- Animated Background Orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+  </div>
+
+  <main class="warranty-container">
+    <div class="glass-card warranty-card">
+      <h1 class="warranty-title">Syarat & Ketentuan di Premiumisme</h1>
+      <p class="warranty-subtitle">Pilih produk untuk melihat detail ketentuan dan garansi yang berlaku.</p>
+
+      <div class="selection-bar">
+        <select id="product-select" class="product-dropdown" aria-label="Pilih Produk">
+          <option value="" disabled selected>-- Silakan Pilih Produk --</option>
+          <!-- Options will be rendered here -->
+        </select>
+        <a href="/" class="btn-kembali">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Kembali
+        </a>
+      </div>
+
+      <div id="warranty-content" class="warranty-content">
+        <div class="empty-state">
+          Konten akan ditampilkan di sini setelah memilih produk.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="warranty-footer">
+    <p>Made With <span class="heart">💜</span> by Premiumisme</p>
+  </footer>
+
+  <script type="module" src="/src/warranty.js"></script>
+</body>
+</html>

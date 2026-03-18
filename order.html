@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial Order - Premiumisme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/order.css" />
+</head>
+<body>
+  <!-- Animated Background Orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="order-container">
+    <div class="glass-card">
+      <h1 class="page-title">Layanan aktif 24/7 ✨</h1>
+
+      <div class="order-actions">
+        <a id="bot-order-btn" href="#" target="_blank" rel="noopener" class="action-btn">
+          <span class="btn-icon">📦</span>
+          <span class="btn-text">Order via Bot (24/7)</span>
+        </a>
+        
+        <a id="webstore-order-btn" href="/store.html" class="action-btn">
+          <span class="btn-icon">🛍️</span>
+          <span class="btn-text">Order via Webstore (24/7)</span>
+        </a>
+      </div>
+
+      <div class="tutorial-section" id="tutorial-container">
+        <!-- Tutorial cards will be rendered here -->
+      </div>
+
+      <!-- Back Link -->
+      <a href="/index.html" class="back-link">
+        <span class="back-arrow">←</span> Kembali ke Menu Utama
+      </a>
+    </div>
+  </main>
+
+  <script type="module" src="/src/order.js"></script>
+</body>
+</html>

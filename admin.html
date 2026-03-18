@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Premiumisme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/admin.css" />
+</head>
+<body class="admin-body">
+  <!-- Login Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+      <h2>🔐 Admin Login</h2>
+      <p>Masukkan password untuk mengakses dashboard</p>
+      <div class="input-group">
+        <input type="password" id="admin-password" placeholder="Password" />
+        <button id="login-btn">Login</button>
+      </div>
+      <p id="login-error" class="error-msg"></p>
+    </div>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div id="admin-dashboard" class="dashboard-container" style="display: none;">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo" id="admin-logo-box">P</div>
+        <span id="admin-brand-name">Premiumisme Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-section="landing">Landing Page</button>
+        <button class="nav-item" data-section="store">Store (Products/Banners)</button>
+        <button class="nav-item" data-section="faq">FAQ</button>
+        <button class="nav-item" data-section="warranty">Warranty</button>
+        <button class="nav-item" data-section="reseller">Reseller Info</button>
+        <button class="nav-item" data-section="config">General Config</button>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="content-header">
+        <h1 id="section-title">Landing Page</h1>
+        <div class="header-actions">
+          <button id="reset-btn" class="btn-secondary">Reset to Default</button>
+          <button id="export-btn" class="btn-success">Export JSON</button>
+          <button id="save-btn" class="btn-primary">Save Changes</button>
+        </div>
+      </header>
+
+      <div id="editor-container" class="editor-container">
+        <!-- Form items will be injected here -->
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

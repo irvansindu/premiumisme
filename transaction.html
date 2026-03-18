@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Transaksi - Premiumisme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/global.css" />
+  <style>
+    .transaction-container {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+    }
+    .check-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+    .check-card h1 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+    .check-card p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .check-input-group {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .check-input-group input {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 0.75rem 1rem;
+      color: var(--text-color);
+      font-family: inherit;
+      outline: none;
+    }
+    .check-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .check-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    .result-area {
+      margin-top: 2rem;
+      display: none;
+      text-align: left;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .status-success { background: #dcfce7; color: #15803d; }
+    .status-pending { background: #fef9c3; color: #a16207; }
+    .status-error { background: #fee2e2; color: #b91c1c; }
+    
+    .invoice-details {
+      display: grid;
+      gap: 1rem;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+    }
+    .detail-label { color: var(--text-muted); }
+    .detail-value { font-weight: 600; color: var(--text-color); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/store.html" class="header-logo">premiumisme.store</a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+        <a href="/store.html" class="btn-login" style="padding: 0.5rem 1rem; text-decoration: none;">Ke Store</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="transaction-container">
+    <div class="check-card">
+      <h1>Cek Status Transaksi</h1>
+      <p>Masukkan ID Transaksi (Invoice) Anda untuk melihat status pesanan.</p>
+      
+      <div class="check-input-group">
+        <input type="text" id="invoice-input" placeholder="Contoh: INV-12345678" />
+        <button class="check-btn" id="check-btn">Periksa</button>
+      </div>
+
+      <div id="result-area" class="result-area">
+        <!-- Result content injected here -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" style="margin-top: 10rem;">
+    <div class="footer-inner" style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      &copy; 2026 Premiumisme. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Search Modal (Global) -->
+  <div id="search-modal" class="search-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="search-modal-input" placeholder="Cari produk & transaksi..." />
+        <button class="search-close" onclick="document.getElementById('search-modal').classList.remove('active')">Esc</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/transaction.js"></script>
+  <script type="module" src="/src/global.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premiumisme Store - Produk Digital Premium</title>
+  <meta name="description" content="Belanja produk digital premium terbaik: Canva Pro, ChatGPT Plus, CapCut Pro, YouTube Premium dan lainnya." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/global.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/store.html" class="header-logo">premiumisme.store</a>
+      <div class="search-bar">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="header-search-input" placeholder="Cari produk & transaksi" readonly />
+        <span class="search-shortcut">ctrl+k</span>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+        <button class="btn-login">Masuk</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Tabs (Dynamic) -->
+  <div id="category-tabs" class="category-tabs">
+    <!-- Categories will be rendered here -->
+  </div>
+
+  <!-- Banner Slider (Dynamic) -->
+  <section class="banner-section">
+    <div id="banner-slider" class="banner-slider">
+      <!-- Banners will be rendered here -->
+    </div>
+  </section>
+
+  <!-- Products Grid (Dynamic) -->
+  <section class="products-section">
+    <div id="products-grid" class="products-grid">
+      <!-- Products will be rendered here -->
+    </div>
+  </section>
+
+  <!-- Articles Section (Dynamic) -->
+  <section class="articles-section">
+    <h2 class="section-title">Artikel Terbaru</h2>
+    <div id="articles-grid" class="articles-grid">
+      <!-- Articles will be rendered here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>premiumisme.store</h3>
+          <p>Solusi produk digital premium terbaik dengan harga terjangkau. Proses cepat, aman, dan bergaransi.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social-icon" aria-label="WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.467A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-2.314 0-4.46-.756-6.199-2.033l-.437-.33-2.746.87.88-2.664-.363-.472A9.705 9.705 0 0 1 2.25 12 9.75 9.75 0 0 1 12 2.25 9.75 9.75 0 0 1 21.75 12 9.75 9.75 0 0 1 12 21.75z"/></svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Telegram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col" id="footer-categories">
+          <h4>Kategori</h4>
+          <ul>
+            <li><a href="#">Desain</a></li>
+            <li><a href="#">Musik & Video</a></li>
+            <li><a href="#">Productivity</a></li>
+            <li><a href="#">VPN</a></li>
+            <li><a href="#">Cloud Storage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Informasi</h4>
+          <ul>
+            <li><a href="#">Fitur-Fitur</a></li>
+            <li><a href="#">Cara Order</a></li>
+            <li><a href="#">Premiumisme Tools</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Dukungan</h4>
+          <ul>
+            <li><a href="/faq.html">FAQ</a></li>
+            <li><a href="/warranty.html">Garansi</a></li>
+            <li><a href="https://wa.me/6289633011300">Tanya Admin</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Premiumisme. All rights reserved.</p>
+        <div class="komdigi-badge">
+          <span class="badge-dot"></span>
+          Terdaftar sebagai penyedia media elektronik di Komdigi
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Search Modal -->
+  <div class="search-modal-overlay" id="search-modal">
+    <div class="search-modal">
+      <input type="text" id="search-modal-input" placeholder="Cari produk & transaksi..." />
+      <div id="search-results" class="search-results"></div>
+      <p class="search-modal-hint">Tekan <kbd>ESC</kbd> untuk menutup</p>
+    </div>
+  </div>
+
+  <script type="module" src="/src/global.js"></script>
+</body>
+</html>

@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderFooter();
 
   setupGlobalAnimations();
+  injectWhatsAppFAB();
 
   // FINAL STEP: Reveal body after all branding and data is ready
   document.body.classList.add('body-ready');
@@ -360,19 +361,49 @@ function setupGlobalAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('revealed');
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.product-card, .article-card, .warranty-block, .accordion-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  // Enhanced: target more elements for scroll reveal
+  const revealSelectors = [
+    '.product-card', '.article-card', '.warranty-block', '.accordion-item',
+    '.banner-section', '.articles-section', '.section-title',
+    '.footer-brand', '.footer-col',
+    '.reseller-hero', '.reseller-benefits', '.reseller-calc',
+    '.order-step', '.faq-hero'
+  ];
+
+  document.querySelectorAll(revealSelectors.join(',')).forEach((el, i) => {
+    el.classList.add('reveal');
+    // Stagger children inside grids
+    const delayClass = `reveal-delay-${(i % 4) + 1}`;
+    el.classList.add(delayClass);
     observer.observe(el);
   });
+}
+
+function injectWhatsAppFAB() {
+  // Don't inject on admin page
+  if (window.location.pathname.includes('admin')) return;
+
+  const config = store.get('config');
+  const waNum = config?.whatsappNumber || '6289633011300';
+
+  const fab = document.createElement('a');
+  fab.href = `https://wa.me/${waNum}`;
+  fab.target = '_blank';
+  fab.rel = 'noopener';
+  fab.className = 'wa-fab';
+  fab.setAttribute('aria-label', 'Chat WhatsApp');
+  fab.innerHTML = `
+    <div class="wa-fab-pulse"></div>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.467A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-2.314 0-4.46-.756-6.199-2.033l-.437-.33-2.746.87.88-2.664-.363-.472A9.705 9.705 0 0 1 2.25 12 9.75 9.75 0 0 1 12 2.25 9.75 9.75 0 0 1 21.75 12 9.75 9.75 0 0 1 12 21.75z"/></svg>
+    <span class="wa-fab-tooltip">Chat Admin 💬</span>
+  `;
+  document.body.appendChild(fab);
 }
 
 export function updateGlobalBranding() {

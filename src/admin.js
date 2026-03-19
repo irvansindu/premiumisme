@@ -658,7 +658,13 @@ function handleExportJSON() {
 // Add/Remove logic using delegation
 editorContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('btn-remove')) {
-    e.target.parentElement.remove();
+    // Remove the whole item-block if inside one, otherwise remove direct parent
+    const block = e.target.closest('.item-block');
+    if (block) {
+      block.remove();
+    } else {
+      e.target.parentElement.remove();
+    }
   } else if (e.target.classList.contains('btn-add')) {
     const listId = e.target.dataset.list;
     const list = document.getElementById(listId);

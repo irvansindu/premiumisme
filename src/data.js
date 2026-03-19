@@ -5,8 +5,8 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const INITIAL_DATA = {
-// ... keep same INITIAL_DATA content ...
-// I will include the full object in the final replacement to match the file structure.
+  // ... keep same INITIAL_DATA content ...
+  // I will include the full object in the final replacement to match the file structure.
   config: {
     botUrl: "https://t.me/premiumisme_bot",
     whatsappNumber: "6289633011300",
@@ -51,13 +51,13 @@ const INITIAL_DATA = {
       { id: 3, title: "✂️ CapCut Pro - Edit Video Profesional", subtitle: "Efek premium, template eksklusif, tanpa watermark", bg: "linear-gradient(135deg, #2563eb, #818cf8)" }
     ],
     products: [
-      { 
-        id: "canva", 
-        name: "Canva Pro", 
-        category: "desain", 
-        icon: "C", 
-        bg: "linear-gradient(135deg, #7c3aed, #06b6d4)", 
-        badge: "PROSES MANUAL", 
+      {
+        id: "canva",
+        name: "Canva Pro",
+        category: "desain",
+        icon: "C",
+        bg: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+        badge: "PROSES MANUAL",
         badgeType: "manual",
         description: "<p><strong>Canva Pro</strong> adalah versi premium dari platform desain populer yang cocok untuk kamu yang ingin membuat desain lebih cepat, kreatif, dan profesional.</p><br/><p>💡 <strong>Fitur Canva Pro</strong></p><ul class='detail-features'><li>Akses jutaan foto, video, & elemen premium</li><li>Background Remover instan</li><li>Magic Resize untuk berbagai ukuran desain</li></ul>",
         features: ["Brand Kit untuk konsistensi desain", "Content Planner untuk jadwal posting", "100GB Cloud Storage", "Template eksklusif premium", "Kolaborasi tim tanpa batas"],
@@ -73,13 +73,13 @@ const INITIAL_DATA = {
           { user: "Siti N.", stars: 5, text: "Harga murah tapi kualitas juara. Sudah beli berkali-kali di sini, selalu puas!", date: "5 hari yang lalu" }
         ]
       },
-      { 
-        id: "capcut", 
-        name: "CapCut Pro", 
-        category: "desain", 
-        icon: "✂", 
-        bg: "linear-gradient(135deg, #1e293b, #475569)", 
-        badge: "STOK HABIS", 
+      {
+        id: "capcut",
+        name: "CapCut Pro",
+        category: "desain",
+        icon: "✂",
+        bg: "linear-gradient(135deg, #1e293b, #475569)",
+        badge: "STOK HABIS",
         badgeType: "habis",
         description: "<p>Edit video layaknya profesional dengan <strong>CapCut Pro</strong>. Nikmati fitur eksklusif tanpa watermark.</p>",
         features: ["Tanpa Watermark", "Efek & Transisi Premium", "Cloud Storage 10GB", "Ekspor 4K"],
@@ -89,13 +89,13 @@ const INITIAL_DATA = {
         ],
         reviews: []
       },
-      { 
-        id: "chatgpt", 
-        name: "ChatGPT Plus", 
-        category: "productivity", 
-        icon: "G", 
-        bg: "linear-gradient(135deg, #059669, #34d399)", 
-        badge: "PROSES MANUAL", 
+      {
+        id: "chatgpt",
+        name: "ChatGPT Plus",
+        category: "productivity",
+        icon: "G",
+        bg: "linear-gradient(135deg, #059669, #34d399)",
+        badge: "PROSES MANUAL",
         badgeType: "manual",
         description: "<p>Akses <strong>GPT-4</strong> dan fitur AI tercanggih dengan ChatGPT Plus.</p>",
         features: ["Akses GPT-4", "DALL-E 3 Image Generation", "Advanced Data Analysis", "Custom GPTs"],
@@ -209,13 +209,13 @@ class DataStore {
   async save(newData) {
     this.data = { ...this.data, ...newData };
     localStorage.setItem(this.key, JSON.stringify(this.data));
-    
+
     // Remote save to Supabase
     try {
       const { error } = await supabase
         .from('settings')
         .upsert({ id: 1, data: this.data });
-      
+
       if (error) throw error;
       console.log("Data saved globally to Supabase");
     } catch (err) {

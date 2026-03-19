@@ -278,6 +278,20 @@ function renderStoreEditor(data) {
       </div>
       
       <div class="sub-section" style="margin-bottom: 3rem;">
+        <h4>🏷️ Categories</h4>
+        <div id="store-categories" class="item-list">
+          ${data.categories.map((c, i) => `
+            <div class="item-row" data-index="${i}">
+              <input type="text" placeholder="Name (e.g. Desain)" value="${c.name}" class="c-name" ${c.id === 'all' ? 'readonly' : ''} />
+              <input type="text" placeholder="Slug (e.g. desain)" value="${c.id}" class="c-id" ${c.id === 'all' ? 'readonly' : ''} />
+              ${c.id !== 'all' ? '<button class="btn-remove">×</button>' : '<span style="width: 32px; text-align:center; color: var(--text-muted);">🔒</span>'}
+            </div>
+          `).join('')}
+        </div>
+        <button class="btn-add" data-list="store-categories">+ Add Category</button>
+      </div>
+
+      <div class="sub-section" style="margin-bottom: 3rem;">
         <h4>🖼️ Banners</h4>
         <div id="store-banners" class="item-list">
           ${data.banners.map((b, i) => `
@@ -541,6 +555,15 @@ async function handleSave() {
   } else if (currentSection === 'store') {
     updatedData.store = {
       ...store.get('store'),
+      categories: Array.from(document.querySelectorAll('#store-categories .item-row')).map(row => {
+        const idInput = row.querySelector('.c-id').value.trim();
+        const nameInput = row.querySelector('.c-name').value.trim();
+        return {
+          name: nameInput,
+          // Auto-generate slug if left empty, else sanitize it
+          id: idInput ? idInput.toLowerCase().replace(/\s+/g, '-') : nameInput.toLowerCase().replace(/\s+/g, '-')
+        };
+      }),
       banners: Array.from(document.querySelectorAll('#store-banners .item-block')).map(block => {
         return {
           title: block.querySelector('.b-title').value,
@@ -675,6 +698,13 @@ editorContainer.addEventListener('click', (e) => {
     if (listId === 'landing-links') {
       row.className = 'item-row';
       row.innerHTML = `<input type="text" placeholder="Text" /><input type="text" placeholder="URL" /><input type="text" placeholder="Icon" /><button class="btn-remove">×</button>`;
+    } else if (listId === 'store-categories') {
+      row.className = 'item-row';
+      row.innerHTML = `
+        <input type="text" placeholder="Name" class="c-name" />
+        <input type="text" placeholder="Slug (auto)" class="c-id" />
+        <button class="btn-remove">×</button>
+      `;
     } else if (listId === 'store-products') {
       row.className = 'item-block';
       row.innerHTML = `

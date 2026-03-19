@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderLanding();
   updateGlobalBranding();
   setupAnimations();
+
+  // Hide the premium preloader smoothly
+  const preloader = document.getElementById('premium-preloader');
+  if (preloader) {
+    setTimeout(() => {
+      preloader.classList.add('hidden');
+    }, 800); // 800ms delay to let the user see the aesthetic loader
+  }
 });
 
 function renderLanding() {

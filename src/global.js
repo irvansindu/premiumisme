@@ -1,24 +1,5 @@
 import { store } from './data.js';
 
-// Inject preloader immediately
-injectPreloader();
-
-function injectPreloader() {
-  const preloader = document.createElement('div');
-  preloader.id = 'preloader';
-  preloader.className = 'preloader';
-  preloader.innerHTML = `
-    <div class="preloader-content">
-      <div class="preloader-logo" id="preloader-brand">Store</div>
-      <div class="preloader-spinner-wrapper">
-        <div class="preloader-spinner"></div>
-        <div class="preloader-spinner-inner"></div>
-      </div>
-    </div>
-  `;
-  document.documentElement.appendChild(preloader);
-}
-
 // ===== Global JS: Theme toggle, search modal, scroll-to-top =====
 document.addEventListener('DOMContentLoaded', async () => {
   await store.init();
@@ -43,15 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // FINAL STEP: Reveal body after all branding and data is ready
   document.body.classList.add('body-ready');
-  
-  // Hide Preloader with delay for smoothness
-  const preloader = document.getElementById('preloader');
-  if (preloader) {
-    setTimeout(() => {
-      preloader.classList.add('preloader-hidden');
-      setTimeout(() => preloader.remove(), 600);
-    }, 400);
-  }
 });
 
 function renderFooter() {
@@ -407,12 +379,6 @@ export function updateGlobalBranding() {
   const data = store.get('landing');
   const brandName = data.brandName || "Store";
   const brandNameLower = brandName.toLowerCase().replace(/\s+/g, '');
-
-  // Update preloader brand name if it's still visible
-  const preloaderBrand = document.getElementById('preloader-brand');
-  if (preloaderBrand) {
-    preloaderBrand.textContent = brandName;
-  }
 
   // 1. Update Document Title
   if (document.title.includes('Premiumisme') || document.title === 'Syarat & Ketentuan' || document.title === 'FAQ' || document.title === 'Tutorial Order' || document.title === 'Product Detail' || document.title === 'Cek Status Transaksi' || document.title === 'Program Reseller' || document.title === 'Premium Store') {

@@ -120,9 +120,11 @@ a {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  padding: 32px 24px;
+  padding: clamp(24px, 5vw, 32px) clamp(16px, 4vw, 24px);
   box-shadow: var(--glass-shadow);
   text-align: center;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .page-title {
@@ -275,8 +277,16 @@ a {
 @media screen and (max-width: 480px) {
   .glass-card {
     padding: 24px 16px;
+    width: 100%;
   }
   .tutorial-card {
     padding: 20px 16px;
+  }
+  .page-title {
+    font-size: 20px;
+  }
+  .action-btn {
+    padding: 14px;
+    font-size: 14px;
   }
 }

@@ -24,7 +24,9 @@ const logoutBtn = document.getElementById('logout-btn');
 const resetBtn = document.getElementById('reset-btn');
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await store.init();
+  
   // Check if already logged in (session storage)
   if (sessionStorage.getItem('premiumisme_admin_auth') === 'true') {
     authenticate();
@@ -498,8 +500,14 @@ function renderConfigEditor(data) {
   `;
 }
 
-function handleSave() {
+async function handleSave() {
+  const saveBtn = document.getElementById('save-btn');
+  const originalText = saveBtn.textContent;
+  saveBtn.textContent = 'Menyimpan ke Cloud...';
+  saveBtn.disabled = true;
+
   const updatedData = {};
+  // ... (rest of the logic remains same until store.save)
 
   if (currentSection === 'landing') {
     updatedData.landing = {
@@ -609,9 +617,12 @@ function handleSave() {
     };
   }
 
-  store.save(updatedData);
+  await store.save(updatedData);
   updateSidebarBranding();
-  alert('Perubahan berhasil disimpan!');
+  
+  saveBtn.textContent = originalText;
+  saveBtn.disabled = false;
+  alert('Perubahan berhasil disimpan dan sudah LIVE untuk semua orang! 🚀');
 }
 
 function handleExportJSON() {

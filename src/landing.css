@@ -120,9 +120,9 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: 24px;
-  padding: 48px 36px;
+  padding: clamp(32px, 8vw, 48px) clamp(20px, 5vw, 36px);
   max-width: 440px;
-  width: 100%;
+  width: 95%; /* Better width on small screens */
   text-align: center;
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.3),
@@ -161,8 +161,8 @@ body {
 }
 
 .avatar {
-  width: 96px;
-  height: 96px;
+  width: clamp(80px, 20vw, 96px);
+  height: clamp(80px, 20vw, 96px);
   border-radius: 50%;
   background: linear-gradient(135deg, #4f46e5, #6366f1);
   display: flex;

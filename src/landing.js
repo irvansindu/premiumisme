@@ -2,7 +2,8 @@ import { store } from './data.js';
 import { updateGlobalBranding } from './global.js';
 
 // Landing page interactions
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await store.init();
   renderLanding();
   updateGlobalBranding();
   setupAnimations();

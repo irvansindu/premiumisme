@@ -1,14 +1,12 @@
-/**
- * Central Data Store for Premiumisme Clone
- * Handles initial data and localStorage persistence.
- * 
- * TIP: To make changes permanent across all users/hostings:
- * 1. Edit via Admin Panel (/admin.html)
- * 2. Click "Export JSON"
- * 3. Copy the content and paste it into the INITIAL_DATA variable below.
- */
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = 'https://preygsixwsyjgepekumc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByZXlnc2l4d3N5amdlcGVrdW1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5MDYxNjIsImV4cCI6MjA4OTQ4MjE2Mn0.jXg3PFYoNqXh20HvZ-8XCevWvBUW7xyvo8NJpohXvPU';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const INITIAL_DATA = {
+// ... keep same INITIAL_DATA content ...
+// I will include the full object in the final replacement to match the file structure.
   config: {
     botUrl: "https://t.me/premiumisme_bot",
     whatsappNumber: "6289633011300",
@@ -159,10 +157,13 @@ const INITIAL_DATA = {
 class DataStore {
   constructor() {
     this.key = 'premiumisme_data_v2';
-    this.data = this._load();
+    this.data = this._loadLocal();
+    this.initialized = false;
+    // Auto-init for quick access if possible, 
+    // but better called explicitly in main.js
   }
 
-  _load() {
+  _loadLocal() {
     const saved = localStorage.getItem(this.key);
     if (saved) {
       try {
@@ -174,16 +175,56 @@ class DataStore {
     return INITIAL_DATA;
   }
 
-  save(newData) {
+  async init() {
+    if (this.initialized) return this.data;
+    try {
+      const { data, error } = await supabase
+        .from('settings')
+        .select('data')
+        .eq('id', 1)
+        .single();
+
+      if (data) {
+        this.data = data.data;
+        localStorage.setItem(this.key, JSON.stringify(this.data));
+      } else {
+        // First time initialization in DB
+        await supabase.from('settings').upsert({ id: 1, data: INITIAL_DATA });
+        this.data = INITIAL_DATA;
+      }
+      this.initialized = true;
+      window.dispatchEvent(new CustomEvent('premiumisme-data-ready', { detail: this.data }));
+      return this.data;
+    } catch (err) {
+      console.warn("Supabase fetch failed, using local/initial data", err);
+      return this.data;
+    }
+  }
+
+  async save(newData) {
     this.data = { ...this.data, ...newData };
     localStorage.setItem(this.key, JSON.stringify(this.data));
-    // Dispatch event so other tabs/listeners can update
+    
+    // Remote save to Supabase
+    try {
+      const { error } = await supabase
+        .from('settings')
+        .upsert({ id: 1, data: this.data });
+      
+      if (error) throw error;
+      console.log("Data saved globally to Supabase");
+    } catch (err) {
+      console.error("Supabase Global Save Error:", err);
+      alert("Gagal simpan ke Cloud! Tapi data tetap tersimpan di browser ini.");
+    }
+
     window.dispatchEvent(new CustomEvent('premiumisme-data-updated', { detail: this.data }));
   }
 
   reset() {
     this.data = INITIAL_DATA;
     localStorage.removeItem(this.key);
+    // Note: This doesn't reset Supabase to prevent accidental global data loss
     window.location.reload();
   }
 

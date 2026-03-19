@@ -1,7 +1,8 @@
 import { store } from './data.js';
 import { updateGlobalBranding } from './global.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await store.init();
   updateGlobalBranding();
   const urlParams = new URLSearchParams(window.location.search);
   const productSlug = urlParams.get('p');

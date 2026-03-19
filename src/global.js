@@ -1,7 +1,8 @@
 import { store } from './data.js';
 
 // ===== Global JS: Theme toggle, search modal, scroll-to-top =====
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await store.init();
   initTheme();
   initSearch();
   initScrollTop();

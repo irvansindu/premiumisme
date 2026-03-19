@@ -277,6 +277,26 @@ function renderStoreEditor(data) {
         <h3>Store Content</h3>
       </div>
       
+      <div class="sub-section" style="margin-bottom: 3rem; background: rgba(239, 68, 68, 0.1); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(239, 68, 68, 0.2);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h4 style="margin:0; color: #ef4444;">⚡ Flash Sale (FOMO)</h4>
+          <label style="display:flex; align-items:center; gap:0.5rem; font-weight:bold;">
+            <input type="checkbox" id="fs-active" ${data.flashSale?.active ? 'checked' : ''} style="width:1.2rem; height:1.2rem; cursor:pointer;" />
+            Aktifkan Promo
+          </label>
+        </div>
+        <div style="margin-top: 1rem; display:flex; gap: 1rem; flex-wrap: wrap;">
+          <div class="form-group" style="flex:1; min-width: 250px;">
+            <label style="color:#fca5a5;">Teks Judul Promo</label>
+            <input type="text" id="fs-title" value="${data.flashSale?.title || ''}" placeholder="Misal: Promo Lebaran Berakhir Dalam..." />
+          </div>
+          <div class="form-group" style="flex:1; min-width: 200px;">
+            <label style="color:#fca5a5;">Waktu Berakhir</label>
+            <input type="datetime-local" id="fs-end" value="${data.flashSale?.endDate || ''}" />
+          </div>
+        </div>
+      </div>
+
       <div class="sub-section" style="margin-bottom: 3rem;">
         <h4>🏷️ Categories</h4>
         <div id="store-categories" class="item-list">
@@ -555,6 +575,11 @@ async function handleSave() {
   } else if (currentSection === 'store') {
     updatedData.store = {
       ...store.get('store'),
+      flashSale: {
+        active: document.getElementById('fs-active').checked,
+        title: document.getElementById('fs-title').value,
+        endDate: document.getElementById('fs-end').value
+      },
       categories: Array.from(document.querySelectorAll('#store-categories .item-row')).map(row => {
         const idInput = row.querySelector('.c-id').value.trim();
         const nameInput = row.querySelector('.c-name').value.trim();

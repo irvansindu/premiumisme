@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderFooter();
 
   setupGlobalAnimations();
+  renderFlashSale();
 
   // FINAL STEP: Reveal body after all branding and data is ready
   document.body.classList.add('body-ready');
@@ -254,6 +255,61 @@ function renderStore() {
       </a>
     `).join('');
   }
+}
+
+function renderFlashSale() {
+  const data = store.get('store.flashSale');
+  if (!data || !data.active || !data.endDate) return;
+  
+  const end = new Date(data.endDate).getTime();
+  if (isNaN(end)) return;
+
+  const now = new Date().getTime();
+  if (now >= end) return;
+
+  let banner = document.getElementById('flash-sale-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'flash-sale-banner';
+    banner.className = 'flash-sale-banner';
+    const header = document.querySelector('.site-header');
+    if (header) {
+      header.insertAdjacentElement('afterend', banner);
+    } else {
+      document.body.prepend(banner);
+    }
+  }
+
+  const updateTimer = () => {
+    const currentTime = new Date().getTime();
+    const distance = end - currentTime;
+
+    if (distance < 0) {
+      clearInterval(timerInterval);
+      banner.remove();
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const pad = (n) => n.toString().padStart(2, '0');
+
+    banner.innerHTML = `
+      <span>⚡ ${data.title}</span>
+      <div class="countdown-box">
+        ${days > 0 ? `<span>${pad(days)}<span class="unit">d</span></span> : ` : ''}
+        <span>${pad(hours)}<span class="unit">h</span></span> :
+        <span>${pad(minutes)}<span class="unit">m</span></span> :
+        <span>${pad(seconds)}<span class="unit">s</span></span>
+      </div>
+    `;
+  };
+
+  updateTimer(); // Initial render without 1s delay
+  const timerInterval = setInterval(updateTimer, 1000);
 }
 
 function renderFAQ() {

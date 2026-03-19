@@ -1287,6 +1287,61 @@ img { max-width: 100%; height: auto; display: block; }
   margin: 0 8px;
 }
 
+/* ===== Flash Sale FOMO Banner ===== */
+.flash-sale-banner {
+  background: linear-gradient(90deg, #dc2626, #b91c1c, #ef4444);
+  background-size: 200% auto;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  animation: bgPulse 3s infinite linear;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  position: relative;
+  z-index: 999;
+}
+
+@keyframes bgPulse {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.flash-sale-banner .countdown-box {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 1px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flash-sale-banner .unit {
+  font-size: 11px;
+  opacity: 0.8;
+  letter-spacing: 0;
+  margin-left: 2px;
+}
+
+@media (max-width: 768px) {
+  .flash-sale-banner {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
 /* ===== Scroll Reveal Animations ===== */
 .reveal-up {
   opacity: 0;

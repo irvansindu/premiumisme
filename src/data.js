@@ -32,6 +32,11 @@ const INITIAL_DATA = {
     ]
   },
   store: {
+    flashSale: {
+      active: false,
+      title: "Diskon Spesial Berakhir Dalam:",
+      endDate: "2026-12-31T23:59"
+    },
     categories: [
       { id: "all", name: "Semua" },
       { id: "desain", name: "Desain" },

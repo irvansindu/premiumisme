@@ -377,11 +377,23 @@ function renderStoreEditor(data) {
         <h4>📋 Articles</h4>
         <div id="store-articles" class="item-list">
           ${data.articles.map((a, i) => `
-            <div class="item-row" data-index="${i}">
-              <input type="text" placeholder="Title" value="${a.title}" class="a-title" />
-              <input type="text" placeholder="Background (CSS)" value="${a.bg}" class="a-bg" />
-              <input type="text" placeholder="URL" value="${a.url}" class="a-url" />
-              <button class="btn-remove">×</button>
+            <div class="item-block" data-index="${i}">
+              <div class="item-row">
+                <input type="text" placeholder="Title" value="${a.title}" class="a-title" />
+                <input type="text" placeholder="URL (Action Link)" value="${a.url}" class="a-url" />
+                <button class="btn-remove">×</button>
+              </div>
+              <div class="item-details">
+                <div class="form-group">
+                  <label>Article Cover (Auto-crop 600x400)</label>
+                  <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div class="img-preview article-preview" style="background: ${a.image ? `url(${a.image}) center/cover` : a.bg}">${!a.image ? 'No Img' : ''}</div>
+                    <input type="file" class="a-upload" accept="image/*" />
+                    <input type="hidden" class="a-image-data" value="${a.image || ''}" />
+                    <input type="text" placeholder="Fallback BG (CSS)" value="${a.bg || 'linear-gradient(135deg, #4f46e5, #ec4899)'}" class="a-bg" />
+                  </div>
+                </div>
+              </div>
             </div>
           `).join('')}
         </div>
@@ -574,11 +586,12 @@ async function handleSave() {
           badgeType: badgeInput.value.toLowerCase().includes('habis') ? 'habis' : (badgeInput.value === '' ? 'none' : 'manual')
         };
       }),
-      articles: Array.from(document.querySelectorAll('#store-articles .item-row')).map(row => {
+      articles: Array.from(document.querySelectorAll('#store-articles .item-block')).map(block => {
         return {
-          title: row.querySelector('.a-title').value,
-          bg: row.querySelector('.a-bg').value,
-          url: row.querySelector('.a-url').value,
+          title: block.querySelector('.a-title').value,
+          bg: block.querySelector('.a-bg').value,
+          url: block.querySelector('.a-url').value,
+          image: block.querySelector('.a-image-data').value,
           id: Math.random().toString(36).substr(2, 9)
         };
       })
@@ -686,20 +699,44 @@ editorContainer.addEventListener('click', (e) => {
         </div>
       `;
     } else if (listId === 'store-banners') {
-      row.className = 'item-row';
+      row.className = 'item-block';
       row.innerHTML = `
-        <input type="text" placeholder="Title" class="b-title" />
-        <input type="text" placeholder="Subtitle" class="b-subtitle" />
-        <input type="text" placeholder="Background (CSS)" class="b-bg" />
-        <button class="btn-remove">×</button>
+        <div class="item-row">
+          <input type="text" placeholder="Title" class="b-title" />
+          <input type="text" placeholder="Subtitle" class="b-subtitle" />
+          <button class="btn-remove">×</button>
+        </div>
+        <div class="item-details">
+          <div class="form-group">
+            <label>Banner Image (Auto-crop 1200x450)</label>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="img-preview banner-preview" style="background: linear-gradient(135deg, #4f46e5, #ec4899)">No Img</div>
+              <input type="file" class="b-upload" accept="image/*" />
+              <input type="hidden" class="b-image-data" value="" />
+              <input type="text" placeholder="Fallback BG (CSS)" value="linear-gradient(135deg, #4f46e5, #ec4899)" class="b-bg" />
+            </div>
+          </div>
+        </div>
       `;
     } else if (listId === 'store-articles') {
-      row.className = 'item-row';
+      row.className = 'item-block';
       row.innerHTML = `
-        <input type="text" placeholder="Title" class="a-title" />
-        <input type="text" placeholder="Background (CSS)" class="a-bg" />
-        <input type="text" placeholder="URL" class="a-url" />
-        <button class="btn-remove">×</button>
+        <div class="item-row">
+          <input type="text" placeholder="Title" class="a-title" />
+          <input type="text" placeholder="URL" class="a-url" />
+          <button class="btn-remove">×</button>
+        </div>
+        <div class="item-details">
+          <div class="form-group">
+            <label>Article Cover (Auto-crop 600x400)</label>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <div class="img-preview article-preview" style="background: linear-gradient(135deg, #4f46e5, #ec4899)">No Img</div>
+              <input type="file" class="a-upload" accept="image/*" />
+              <input type="hidden" class="a-image-data" value="" />
+              <input type="text" placeholder="Fallback BG (CSS)" value="linear-gradient(135deg, #4f46e5, #ec4899)" class="a-bg" />
+            </div>
+          </div>
+        </div>
       `;
     } else if (listId === 'faq-items') {
       row.className = 'item-block';
@@ -762,13 +799,20 @@ editorContainer.addEventListener('click', (e) => {
 
 // --- Image Upload Interaction ---
 editorContainer.addEventListener('change', async (e) => {
-  if (e.target.classList.contains('p-upload') || e.target.classList.contains('b-upload')) {
+  if (e.target.classList.contains('p-upload') || e.target.classList.contains('b-upload') || e.target.classList.contains('a-upload')) {
     const file = e.target.files[0];
     if (!file) return;
 
-    const isBanner = e.target.classList.contains('b-upload');
-    const targetW = isBanner ? 1200 : 400;
-    const targetH = isBanner ? 450 : 400;
+    let targetW = 400;
+    let targetH = 400;
+    
+    if (e.target.classList.contains('b-upload')) {
+      targetW = 1200;
+      targetH = 450;
+    } else if (e.target.classList.contains('a-upload')) {
+      targetW = 600;
+      targetH = 400;
+    }
     
     const preview = e.target.parentElement.querySelector('.img-preview');
     const hiddenInput = e.target.parentElement.querySelector('input[type="hidden"]');

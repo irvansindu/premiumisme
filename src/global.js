@@ -246,7 +246,7 @@ function renderStore() {
     articlesGrid.innerHTML = data.articles.map(article => `
       <a href="${article.url}" class="article-card">
         <div class="article-thumb">
-          <div class="article-thumb-bg" style="background: ${article.bg}">
+          <div class="article-thumb-bg" style="background: ${article.image ? `url(${article.image}) center/cover` : article.bg}">
             <div class="article-logo">P</div>
             <h3>${article.title}</h3>
           </div>

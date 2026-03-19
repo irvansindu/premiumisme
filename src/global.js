@@ -258,6 +258,9 @@ function renderStore() {
 }
 
 function renderFlashSale() {
+  // Hanya tampilkan di halaman Store
+  if (!document.getElementById('products-grid')) return;
+
   const data = store.get('store.flashSale');
   if (!data || !data.active || !data.endDate) return;
   

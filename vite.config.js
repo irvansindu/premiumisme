@@ -14,6 +14,7 @@ export default defineConfig({
         reseller: resolve(__dirname, 'reseller.html'),
         transaction: resolve(__dirname, 'transaction.html'),
         admin: resolve(__dirname, 'admin.html'),
+        notfound: resolve(__dirname, '404.html'),
       },
     },
   },

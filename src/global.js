@@ -391,11 +391,7 @@ export function updateGlobalBranding() {
   // 2. Update Header & Footer logos and Copyright Brand
   const logos = document.querySelectorAll('.header-logo');
   logos.forEach(el => {
-    if (el.tagName === 'A') {
-      el.textContent = `${brandNameLower}.store`;
-    } else {
-      el.textContent = `${brandNameLower}.store`;
-    }
+    el.textContent = brandName;
   });
 
   // 3. Update Meta Description & OG
@@ -440,7 +436,7 @@ export function updateGlobalBranding() {
   footerTexts.forEach(p => {
     if (p.textContent.includes('©')) {
         const year = new Date().getFullYear();
-        p.innerHTML = `© ${year} <span class="header-logo">${brandNameLower}.store</span>. All rights reserved.`;
+        p.innerHTML = `© ${year} <span class="header-logo">${brandName}</span>. All rights reserved.`;
     }
   });
 }

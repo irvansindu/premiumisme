@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderFooter();
 
   setupGlobalAnimations();
+
+  // FINAL STEP: Reveal body after all branding and data is ready
+  document.body.classList.add('body-ready');
 });
 
 function renderFooter() {
@@ -374,30 +377,35 @@ function setupGlobalAnimations() {
 
 export function updateGlobalBranding() {
   const data = store.get('landing');
-  const brandName = data.brandName || "Premiumisme";
+  const brandName = data.brandName || "Store";
   const brandNameLower = brandName.toLowerCase().replace(/\s+/g, '');
 
   // 1. Update Document Title
-  if (document.title.includes('Premiumisme')) {
+  if (document.title.includes('Premiumisme') || document.title === 'Syarat & Ketentuan' || document.title === 'FAQ' || document.title === 'Tutorial Order' || document.title === 'Product Detail' || document.title === 'Cek Status Transaksi' || document.title === 'Program Reseller' || document.title === 'Premium Store') {
     document.title = document.title.replace(/Premiumisme/g, brandName);
+    if (!document.title.includes(brandName)) {
+       document.title = `${document.title} - ${brandName}`;
+    }
   }
 
-  // 2. Update Header & Footer logos (Special formatting)
-  const logos = document.querySelectorAll('.header-logo, .footer-brand h3');
+  // 2. Update Header & Footer logos and Copyright Brand
+  const logos = document.querySelectorAll('.header-logo');
   logos.forEach(el => {
-    el.textContent = `${brandNameLower}.store`;
+    if (el.tagName === 'A') {
+      el.textContent = `${brandNameLower}.store`;
+    } else {
+      el.textContent = `${brandNameLower}.store`;
+    }
   });
 
   // 3. Update Meta Description & OG
   const metaTags = document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[property="og:title"]');
   metaTags.forEach(tag => {
-    if (tag.content.includes('Premiumisme')) {
-      tag.content = tag.content.replace(/Premiumisme/g, brandName);
-    }
+    tag.content = tag.content.replace(/Premiumisme/g, brandName);
   });
 
   // 4. Aggressive Recursive Text Replacement
-  // This walks through ALL text nodes in the body and replaces "Premiumisme"
+  // Only if the node contains Premiumisme to avoid unnecessary overhead
   const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
   let node;
   while (node = walk.nextNode()) {
@@ -426,6 +434,15 @@ export function updateGlobalBranding() {
   if (adminBrandName) {
     adminBrandName.textContent = `${brandName} Admin`;
   }
+
+  // 7. Update Footer Copyright Year and Name
+  const footerTexts = document.querySelectorAll('.footer-text, .footer-bottom p');
+  footerTexts.forEach(p => {
+    if (p.textContent.includes('©')) {
+        const year = new Date().getFullYear();
+        p.innerHTML = `© ${year} <span class="header-logo">${brandNameLower}.store</span>. All rights reserved.`;
+    }
+  });
 }
 
 // Listen for data updates to refresh branding

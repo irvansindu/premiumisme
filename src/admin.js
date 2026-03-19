@@ -78,7 +78,9 @@ function setupEventListeners() {
 }
 
 function handleLogin() {
-  if (passwordInput.value === ADMIN_PASSWORD) {
+  const storedPassword = store.get('config')?.adminPassword;
+  const validPassword = storedPassword || ADMIN_PASSWORD;
+  if (passwordInput.value === validPassword) {
     authenticate();
   } else {
     loginError.textContent = 'Password salah!';
@@ -543,6 +545,14 @@ function renderConfigEditor(data) {
         <input type="text" id="config-email" value="${data.email}" />
       </div>
     </div>
+    <div class="editor-section" style="border-top: 2px solid rgba(239, 68, 68, 0.2); padding-top: 2rem;">
+      <h3 style="color: #ef4444;">🔒 Keamanan Admin</h3>
+      <div class="form-group">
+        <label>Password Admin <span style="color: var(--text-muted); font-weight: normal;">(Kosongkan jika ingin tetap menggunakan password default)</span></label>
+        <input type="password" id="config-admin-pw" value="${data.adminPassword || ''}" placeholder="Masukkan password baru..." autocomplete="new-password" />
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">⚠️ Pastikan Bapak mengingat password ini karena dibutuhkan untuk login kembali ke Admin Panel.</p>
+    </div>
   `;
 }
 
@@ -671,10 +681,12 @@ async function handleSave() {
       }
     };
   } else if (currentSection === 'config') {
+    const newPassword = document.getElementById('config-admin-pw').value;
     updatedData.config = {
       botUrl: document.getElementById('config-bot-url').value,
       whatsappNumber: document.getElementById('config-wa-num').value,
-      email: document.getElementById('config-email').value
+      email: document.getElementById('config-email').value,
+      adminPassword: newPassword || ''
     };
   }
 

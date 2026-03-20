@@ -189,34 +189,29 @@ class DataStore {
         .eq('id', 1)
         .single();
 
-      if (data && data.data) {
-        // Remote data exists, sync to local
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+
+      if (data) {
+        console.log("Supabase data loaded successfully");
         this.data = data.data;
         localStorage.setItem(this.key, JSON.stringify(this.data));
       } else {
-        // Remote data NOT found (new project)
-        // Check if we have valuable data in localStorage already
-        const localData = this._loadLocal();
-        const isDefault = JSON.stringify(localData) === JSON.stringify(INITIAL_DATA);
-
-        if (!isDefault) {
-          // AUTO-MIGRATE: Push existing local data to the new Supabase
-          console.log("Auto-migrating local data to new Supabase project...");
-          await supabase.from('settings').upsert({ id: 1, data: localData });
-          this.data = localData;
-        } else {
-          // Both are empty/default, initialize DB with defaults
-          await supabase.from('settings').upsert({ id: 1, data: INITIAL_DATA });
-          this.data = INITIAL_DATA;
-        }
+        // Only initialize if row definitely doesn't exist
+        console.log("No data found in Supabase settings table. Initializing with defaults...");
+        await supabase.from('settings').upsert({ id: 1, data: INITIAL_DATA });
+        this.data = INITIAL_DATA;
       }
       this.initialized = true;
       window.dispatchEvent(new CustomEvent('premiumisme-data-ready', { detail: this.data }));
       return this.data;
     } catch (err) {
-      console.warn("Supabase fetch failed, using local/initial data", err);
-      // Fallback to whatever we loaded in constructor
-      this.initialized = true;
+      console.error("Supabase fetch error:", err);
+      // If Supabase fails, we fallback to local storage data (which was loaded in constructor)
+      console.warn("Using local fallback data.");
+      this.initialized = true; // Still mark as initialized to stop retry loops
+      window.dispatchEvent(new CustomEvent('premiumisme-data-ready', { detail: this.data }));
       return this.data;
     }
   }
